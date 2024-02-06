@@ -17,7 +17,9 @@ const Menu = () => {
       <div className=' w-full md:w-[1440px] bg-blue-500 flex justify-between space-x-5 px-3'>
         {/* LEFT MENU */}
         <div className='flex items-center'>
-          <ListTodoIcon />
+          <Link href='/'>
+            <ListTodoIcon />
+          </Link>
         </div>
         {/* RIGHT MENU */}
         <div className='flex items-center space-x-10'>
