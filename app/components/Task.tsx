@@ -11,84 +11,48 @@ import React, { useState } from 'react';
 
 const Task = () => {
   interface ToDoItem {
-    id: number;
     title: string;
-    detail: string[];
-  }
-  interface TaskItem {
-    taskId: number;
-    taskDetail: string[];
+    tasks: string[];
   }
 
-  const [userInput, setUserInput] = useState({ title: '', detail: [] });
-  const [list, setList] = useState<ListItem[]>([]);
-
-  const [taskInput, setTaskInput] = useState({ taskDetail: [''] });
-  const [task, setTask] = useState<TaskItem[]>([]);
-
-  // Set a user Title n Detail value
-  const updateItem = (field: string, value: string) => {
-    setUserInput((prevUserInput) => ({
-      ...prevUserInput,
-      [field]: value,
-    }));
-  };
+  const [userTitleInput, setUserTitleInput] = useState<string>('');
+  const [userTaskInput, setUserTaskInput] = useState<string[]>([]);
+  const [list, setList] = useState<ToDoItem[]>([]);
 
   // Add ToDo item
   const addItem = () => {
-    if (userInput.title !== '') {
-      const userItem = {
-        // Add a random id
-        id: Math.random(),
-
-        // Add a user value to list
-        title: userInput.title,
-        detail: taskInput.taskDetail,
+    if (userTitleInput !== '') {
+      const newTask: ToDoItem = {
+        title: userTitleInput,
+        tasks: userTaskInput,
       };
+      console.log(newTask);
 
-      // Update list
-      setList([...list, userItem]);
+      setList([...list, newTask]);
 
-      // Reset state
-      setUserInput({ title: '', detail: [] });
+      // Clear the input after adding the item
+      setUserTitleInput('');
+      setUserTaskInput([]);
+      console.log('list', list);
     }
   };
 
-  // Delete Todo item
-  const deleteItem = (key: number) => {
-    const updatedList = list.filter((item) => item.id !== key);
-    setList(updatedList);
-  };
-
-  const updateTask = (value: string, index: number) => {
-    setTaskInput((prevTaskInput) => {
-      const updatedTaskDetail = [...prevTaskInput.taskDetail];
-      updatedTaskDetail[index] = value;
-      return { ...prevTaskInput, taskDetails: updatedTaskDetail };
-    });
-  };
-
-  // Add ToDo task
   const addTask = () => {
-    const userTask = {
-      // Add a random id
-      taskId: Math.random(),
-
-      // Add a user value to list
-      taskDetail: taskInput.taskDetail,
-    };
-
-    // Update list
-    setTask([...task, userTask]);
-
-    // Reset state
-    setTaskInput({ taskDetail: [''] });
+    setUserTaskInput([...userTaskInput, '']);
   };
 
-  // Delete Task
-  const deleteTask = (key: number) => {
-    const updatedTask = task.filter((task) => task.taskId !== key);
-    setTask(updatedTask);
+  const updateTask = (index: number, value: string) => {
+    const updatedTasks = [...userTaskInput];
+    updatedTasks[index] = value;
+    setUserTaskInput(updatedTasks);
+  };
+
+  const deleteItem = (index: number) => {
+    setUserTaskInput(userTaskInput.filter((_, i) => i !== index));
+  };
+
+  const deleteList = (index: number) => {
+    setList(list.filter((_, i) => i !== index));
   };
 
   return (
@@ -99,11 +63,10 @@ const Task = () => {
         </div>
         <Dialog>
           <DialogTrigger
-            onClick={() => {
-              if (task.length === 0) {
-                addTask();
-              }
-            }}
+            // onClick={() => {
+            //   if (task.length === 0) {
+            //   }
+            // }}
             className='fixed bottom-8 right-8 bg-pink-300 size-14 rounded-md'
           >
             +
@@ -115,8 +78,8 @@ const Task = () => {
                 <p>Title:</p>
                 <input
                   type='text'
-                  value={userInput.title}
-                  onChange={(item) => updateItem('title', item.target.value)}
+                  value={userTitleInput}
+                  onChange={(e) => setUserTitleInput(e.target.value)}
                   placeholder='Add title here'
                   className='border-2 p-1'
                 />
@@ -127,19 +90,19 @@ const Task = () => {
                 </div>
 
                 {/* TASK LIST */}
-                {task.map((task, index) => (
+                {userTaskInput.map((task, index) => (
                   <div
-                    key={task.taskId}
+                    key={index}
                     className='flex justify-between items-center'
                   >
                     <input
-                      value={userInput.detail[index]}
-                      onChange={(item) => updateTask(item.target.value, index)}
+                      value={task}
+                      onChange={(e) => updateTask(index, e.target.value)}
                       placeholder='Add details here'
                       className='border-2 p-1'
                     />
                     <button
-                      onClick={() => deleteTask(task.taskId)}
+                      onClick={() => deleteItem(index)}
                       className='p-1 size-8 rounded-md bg-neutral-500'
                     >
                       -
@@ -167,15 +130,19 @@ const Task = () => {
         {/* TASK LIST */}
         <div className='h-full space-y-3'>
           {list.length > 0 ? (
-            list.map((item) => (
-              <div
-                key={item.id}
-                className='flex justify-between px-3 py-1 rounded-md border-2'
-              >
-                {/* CONTENT */}
+            list.map((item, index) => (
+              <div key={index} className='flex justify-center items-center'>
                 <div className='w-full  border-2'>
                   <div>{item.title}</div>
-                  <div>{item.detail.join(' ')}</div>
+                  <div>
+                    {item.tasks.length > 0 ? (
+                      <div key={index} className='flex flex-col'>
+                        {item.tasks[0]}
+                      </div>
+                    ) : (
+                      'null'
+                    )}
+                  </div>
                 </div>
                 {/* BTNS */}
                 <div className='flex space-x-3 items-center'>
@@ -183,7 +150,7 @@ const Task = () => {
                     <Edit />
                   </button>
                   <button
-                    onClick={() => deleteItem(item.id)}
+                    onClick={() => deleteList(index)}
                     className='bg-red-500 text-white p-1 rounded-sm size-8'
                   >
                     <Trash />
