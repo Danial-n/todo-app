@@ -10,7 +10,7 @@ import { Edit, Trash } from 'lucide-react';
 import React, { useState } from 'react';
 
 const Task = () => {
-  interface ListItem {
+  interface ToDoItem {
     id: number;
     title: string;
     detail: string[];
@@ -175,7 +175,7 @@ const Task = () => {
                 {/* CONTENT */}
                 <div className='w-full  border-2'>
                   <div>{item.title}</div>
-                  <div>{item.detail}</div>
+                  <div>{item.detail.join(' ')}</div>
                 </div>
                 {/* BTNS */}
                 <div className='flex space-x-3 items-center'>
