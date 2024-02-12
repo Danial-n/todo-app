@@ -62,18 +62,22 @@ const Task = () => {
           <div>ToDo:</div>
         </div>
         <Dialog>
+          {/* ADD LIST BTN */}
           <DialogTrigger
-            // onClick={() => {
-            //   if (task.length === 0) {
-            //   }
-            // }}
+            onClick={() => {
+              if (userTaskInput.length === 0) {
+                addTask();
+              }
+            }}
             className='fixed bottom-8 right-8 bg-pink-300 size-14 rounded-md'
           >
             +
           </DialogTrigger>
+          {/* ADD LIST FORM */}
           <DialogContent>
             <div className='w-full space-y-3'>
               <h2 className='flex items-center justify-center'>ToDo</h2>
+              {/* FORM TITLE */}
               <div className='flex  space-x-3 items-center'>
                 <p>Title:</p>
                 <input
@@ -84,6 +88,7 @@ const Task = () => {
                   className='border-2 p-1'
                 />
               </div>
+              {/* FORM DETAIL */}
               <div className='flex flex-col space-y-3'>
                 <div className='flex justify-between items-center'>
                   <p>Task(s):</p>
@@ -95,12 +100,14 @@ const Task = () => {
                     key={index}
                     className='flex justify-between items-center'
                   >
+                    {/* TASK DETAIL */}
                     <input
                       value={task}
                       onChange={(e) => updateTask(index, e.target.value)}
                       placeholder='Add details here'
                       className='border-2 p-1'
                     />
+                    {/* DELETE TASK */}
                     <button
                       onClick={() => deleteItem(index)}
                       className='p-1 size-8 rounded-md bg-neutral-500'
@@ -120,6 +127,7 @@ const Task = () => {
               </div>
             </div>
             <div className='w-full flex items-center justify-center'>
+              {/* ADD FORM TO LIST BTN */}
               <DialogClose onClick={addItem} className='p-1 w-16 border '>
                 Add
               </DialogClose>
@@ -137,14 +145,14 @@ const Task = () => {
                   <div>
                     {item.tasks.length > 0 ? (
                       <div key={index} className='flex flex-col'>
-                        {item.tasks[0]}
+                        {item.tasks[0]} {/* IF HAVE TASK */}
                       </div>
                     ) : (
-                      'null'
+                      'null' // IF NO TASK
                     )}
                   </div>
                 </div>
-                {/* BTNS */}
+                {/* EDIT AND DELETE BTNS */}
                 <div className='flex space-x-3 items-center'>
                   <button className='bg-green-500 text-white p-1 rounded-sm size-8'>
                     <Edit />
@@ -159,6 +167,7 @@ const Task = () => {
               </div>
             ))
           ) : (
+            // IF NO TASK LIST
             <div className='flex justify-center items-center'>
               <p>No task</p>
             </div>
