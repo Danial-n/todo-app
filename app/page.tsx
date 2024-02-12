@@ -8,7 +8,7 @@ export default function Home() {
       w-full h-1/2 flex flex-col items-center justify-center space-y-10
       md:w-1/2 md:h-full md:space-y-44'
       >
-        <h1>Landing Page</h1>
+        <h1>LOGO PLACEHOLDER</h1>
         <div
           className='
         flex flex-col w-1/2
