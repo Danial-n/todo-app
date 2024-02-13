@@ -79,4 +79,10 @@
   h3 {
     @apply text-xl font-semibold;
   }
+  button {
+    @apply p-1;
+  }
+  input {
+    @apply p-1 border-2;
+  }
 }

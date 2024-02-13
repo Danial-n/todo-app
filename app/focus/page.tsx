@@ -1,6 +1,6 @@
 import React from 'react';
 import Menu from '../components/Menu';
-import Task from '../components/Task';
+import Task from '../components/task/Task';
 
 const focus = () => {
   return (
