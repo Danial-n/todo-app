@@ -17,7 +17,8 @@ const Task = observer(() => {
   const list = taskStore.list;
 
   const deleteList = (index: number) => {
-    list.filter((_, i) => i !== index);
+    const newList = list.filter((_, i) => i !== index);
+    taskStore.setList(newList);
   };
 
   // const editList = (index: number) => {
@@ -58,18 +59,16 @@ const Task = observer(() => {
                   <DialogTrigger className='w-full text-left'>
                     <h3>{item.title}</h3>
                     <div>
-                      {item.tasks.length > 0 ? (
-                        <div key={index} className='flex flex-col'>
-                          {item.tasks[0]}
-                        </div>
+                      {item.tasks.length >= 0 && item.tasks[0].length > 0 ? (
+                        <div className='flex flex-col'>{item.tasks[0]}</div>
                       ) : (
-                        'no task' // IF NO TASK
+                        <p>no task</p> // IF NO TASK
                       )}
                     </div>
                   </DialogTrigger>
                   <DialogContent>
                     <h2>{item.title}</h2>
-                    {item.tasks[0].length > 0 ? ( // need fix
+                    {item.tasks.length >= 0 && item.tasks[0].length > 0 ? (
                       // LIST OF TASK W/ CHECKBOX
                       item.tasks.map((task, index) => (
                         <div key={index} className='flex justify-between'>

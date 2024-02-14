@@ -7,6 +7,7 @@ export interface listItem {
 
 class taskStore {
   list: listItem[] = [];
+  userTitleInput = '';
 
   constructor() {
     makeObservable(this, {
