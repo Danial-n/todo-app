@@ -17,8 +17,9 @@ const AddList = observer(() => {
   const [userTitleInput, setUserTitleInput] = useState<string>('');
   const [userTaskInput, setUserTaskInput] = useState<string[]>([]);
   const [list, setList] = useState<ToDoItem[]>([]);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+
   const storeList = taskStore.list;
+  const editingIndex = taskStore.editingIndex;
 
   // Add ToDo item list
   const addItem = () => {
@@ -29,7 +30,6 @@ const AddList = observer(() => {
       };
       console.log(newTask);
 
-      setList([...storeList, newTask]);
       taskStore.setList([...storeList, newTask]);
 
       // Clear the input after adding the item
@@ -42,14 +42,14 @@ const AddList = observer(() => {
   const addTask = () => {
     if (editingIndex !== null) {
       // If editing, update the existing task
-      const updatedList = [...list];
+      const updatedList = [...storeList];
       updatedList[editingIndex] = {
         title: userTitleInput,
         tasks: userTaskInput,
       };
       setList(updatedList);
 
-      setEditingIndex(null);
+      taskStore.setEditingIndex(null);
     } else {
       // If not editing, add a new task
       setUserTaskInput([...userTaskInput, '']);

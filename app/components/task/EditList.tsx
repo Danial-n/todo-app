@@ -5,17 +5,53 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Edit } from 'lucide-react';
-import React from 'react';
+import React, { useState } from 'react';
 import taskStore from './taskStore';
+import { observer } from 'mobx-react';
 
-const EditList = () => {
+const EditList = observer(() => {
   const list = taskStore.list;
+  const selectedIndex = taskStore.selectedIndex;
 
-  // const editList = (index: number) => {
-  //   // Set the currently edited task's index
-  //   setEditingIndex(index);
-  //   setUserTitleInput(list[index].title);
-  //   setUserTaskInput([...list[index].tasks]);
+  const editList = (index: number, title: string) => {
+    list[index].title = title;
+    // const updatedTasks = [...taskStore.userTaskInput];
+    // updatedTasks[index] = task;
+    taskStore.setUserTitleInput(list[index].title);
+    taskStore.setUserTaskInput([...list[index].tasks]);
+  };
+
+  // const addTask = () => {
+  //   taskStore.setUserTaskInput([...taskStore.userTaskInput, '']);
+  // };
+
+  // const updateTask = (index: number, value: string) => {
+  //   const updatedTasks = [...userTaskInput];
+  //   updatedTasks[index] = value;
+  //   setUserTaskInput(updatedTasks);
+  // }
+
+  // const addTask = () => {
+  //   if (editingIndex !== null) {
+  //     // If editing, update the existing task
+  //     const updatedList = [...storeList];
+  //     updatedList[editingIndex] = {
+  //       title: userTitleInput,
+  //       tasks: userTaskInput,
+  //     };
+  //     setList(updatedList);
+
+  //     taskStore.setEditingIndex(null);
+  //   } else {
+  //     // If not editing, add a new task
+  //     setUserTaskInput([...userTaskInput, '']);
+  //   }
+  // };
+
+  // const updateTask = (index: number, value: string) => {
+  //   const updatedTasks = [...userTaskInput];
+  //   updatedTasks[index] = value;
+  //   setUserTaskInput(updatedTasks);
   // };
 
   return (
@@ -29,14 +65,13 @@ const EditList = () => {
           {/* FORM TITLE */}
           <div className='flex  space-x-3 items-center'>
             <p>Title:</p>
-            {list.flatMap((listItem, index) => (
-              <input
-                type='text'
-                value={listItem.title}
-                // onChange={handleTitle}
-                placeholder='Add title here'
-              />
-            ))}
+            <input
+              key={selectedIndex}
+              type='text'
+              value={list[selectedIndex].title}
+              onChange={(e) => editList(selectedIndex, e.target.value)}
+              placeholder='Add title here'
+            />
           </div>
           {/* FORM DETAIL */}
           <div className='flex flex-col space-y-3'>
@@ -45,28 +80,26 @@ const EditList = () => {
             </div>
 
             {/* TASK LIST */}
-            {list.flatMap((listItem, index) =>
-              listItem.tasks.map((item, taskIndex) => (
-                <div
-                  key={taskIndex}
-                  className='flex justify-between items-center'
+            {list[selectedIndex].tasks.map((item: string, taskIndex: any) => (
+              <div
+                key={taskIndex}
+                className='flex justify-between items-center'
+              >
+                {/* TASK INPUT */}
+                <input
+                  value={item}
+                  // onChange={handleTitle}
+                  placeholder='Add details here'
+                />
+                {/* DELETE TASK */}
+                <button
+                  // onClick={() => deleteItem(index)}
+                  className=' size-8 rounded-md bg-neutral-500'
                 >
-                  {/* TASK DETAIL */}
-                  <input
-                    value={item}
-                    // onChange={handleTitle}
-                    placeholder='Add details here'
-                  />
-                  {/* DELETE TASK */}
-                  <button
-                    // onClick={() => deleteItem(index)}
-                    className=' size-8 rounded-md bg-neutral-500'
-                  >
-                    -
-                  </button>
-                </div>
-              ))
-            )}
+                  -
+                </button>
+              </div>
+            ))}
 
             {/* ADD TASK BTN */}
             <button
@@ -83,12 +116,12 @@ const EditList = () => {
             // onClick={() => editList(index)}
             className=' w-16 border '
           >
-            Add
+            Edit
           </DialogClose>
         </div>
       </DialogContent>
     </Dialog>
   );
-};
+});
 
 export default EditList;
