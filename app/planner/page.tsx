@@ -1,6 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
-import Task from '../components/Task';
+import Task from '../components/task/Task';
 import Calendar from '../components/Calendar';
 import Mile from '../components/Mile';
 import Menu from '../components/Menu';
