@@ -106,7 +106,7 @@ const EditList = observer(() => {
               // onClick={addTask}
               className=' rounded-md bg-neutral-500'
             >
-              more task
+              more tasks
             </button>
           </div>
         </div>
