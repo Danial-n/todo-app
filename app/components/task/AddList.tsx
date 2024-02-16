@@ -16,12 +16,9 @@ const AddList = observer(() => {
 
   const [userTitleInput, setUserTitleInput] = useState<string>('');
   const [userTaskInput, setUserTaskInput] = useState<string[]>([]);
-  const [list, setList] = useState<ToDoItem[]>([]);
-
   const storeList = taskStore.list;
-  const editingIndex = taskStore.editingIndex;
 
-  // Add ToDo item list
+  // Add all item to the list
   const addItem = () => {
     if (userTitleInput !== '') {
       const newTask: ToDoItem = {
@@ -35,27 +32,17 @@ const AddList = observer(() => {
       // Clear the input after adding the item
       setUserTitleInput('');
       setUserTaskInput([]);
-      console.log('list', list);
+      console.log('list', storeList);
     }
   };
 
+  // add more task (within the list)
   const addTask = () => {
-    if (editingIndex !== null) {
-      // If editing, update the existing task
-      const updatedList = [...storeList];
-      updatedList[editingIndex] = {
-        title: userTitleInput,
-        tasks: userTaskInput,
-      };
-      setList(updatedList);
-
-      taskStore.setEditingIndex(null);
-    } else {
-      // If not editing, add a new task
-      setUserTaskInput([...userTaskInput, '']);
-    }
+    // If not editing, add a new task
+    setUserTaskInput([...userTaskInput, '']);
   };
 
+  //compile the task to array
   const updateTask = (index: number, value: string) => {
     const updatedTasks = [...userTaskInput];
     updatedTasks[index] = value;
@@ -64,6 +51,59 @@ const AddList = observer(() => {
 
   const deleteItem = (index: number) => {
     setUserTaskInput(userTaskInput.filter((_, i) => i !== index));
+  };
+
+  const formTitle = () => {
+    return (
+      <div className='flex  space-x-3 items-center'>
+        <p>Title:</p>
+        <input
+          type='text'
+          value={userTitleInput}
+          onChange={(e) => setUserTitleInput(e.target.value)}
+          placeholder='Add title here'
+        />
+      </div>
+    );
+  };
+
+  const formDetail = () => {
+    return (
+      <div className='flex flex-col space-y-3'>
+        <div className='flex justify-between items-center'>
+          <p>Task(s):</p>
+        </div>
+
+        {/* TASK LIST */}
+        {userTaskInput.map((task, index) => (
+          <div key={index} className='flex justify-between items-center'>
+            {/* TASK DETAIL */}
+            <input
+              value={task}
+              onChange={(e) => updateTask(index, e.target.value)}
+              placeholder='Add details here'
+              className='border-2  w-10/12'
+            />
+            {/* DELETE TASK */}
+            <button
+              onClick={() => {
+                if (userTaskInput.length != 1) {
+                  deleteItem(index);
+                }
+              }}
+              className=' size-8 rounded-md bg-red-500'
+            >
+              -
+            </button>
+          </div>
+        ))}
+
+        {/* ADD TASK BTN */}
+        <button onClick={addTask} className=' rounded-md bg-lime-500'>
+          more task
+        </button>
+      </div>
+    );
   };
 
   return (
@@ -83,47 +123,8 @@ const AddList = observer(() => {
       <DialogContent>
         <div className='w-full space-y-3'>
           <h2 className='flex items-center justify-center'>ToDo</h2>
-          {/* FORM TITLE */}
-          <div className='flex  space-x-3 items-center'>
-            <p>Title:</p>
-            <input
-              type='text'
-              value={userTitleInput}
-              onChange={(e) => setUserTitleInput(e.target.value)}
-              placeholder='Add title here'
-            />
-          </div>
-          {/* FORM DETAIL */}
-          <div className='flex flex-col space-y-3'>
-            <div className='flex justify-between items-center'>
-              <p>Task(s):</p>
-            </div>
-
-            {/* TASK LIST */}
-            {userTaskInput.map((task, index) => (
-              <div key={index} className='flex justify-between items-center'>
-                {/* TASK DETAIL */}
-                <input
-                  value={task}
-                  onChange={(e) => updateTask(index, e.target.value)}
-                  placeholder='Add details here'
-                  className='border-2  w-10/12'
-                />
-                {/* DELETE TASK */}
-                <button
-                  onClick={() => deleteItem(index)}
-                  className=' size-8 rounded-md bg-red-500'
-                >
-                  -
-                </button>
-              </div>
-            ))}
-
-            {/* ADD TASK BTN */}
-            <button onClick={addTask} className=' rounded-md bg-lime-500'>
-              more task
-            </button>
-          </div>
+          {formTitle()}
+          {formDetail()}
         </div>
         <div className='w-full flex items-center justify-center'>
           {/* ADD FORM TO LIST BTN */}

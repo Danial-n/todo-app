@@ -8,8 +8,7 @@ export interface listItem {
 class taskStore {
   list: listItem[] = [];
   userTitleInput = '';
-  userTaskInput = [];
-  editingIndex = null;
+  userTaskInput = [''];
   selectedIndex = 0;
 
   constructor() {
@@ -18,8 +17,6 @@ class taskStore {
       setList: action,
       userTitleInput: observable,
       setUserTitleInput: action,
-      editingIndex: observable,
-      setEditingIndex: action,
       selectedIndex: observable,
       setSelectedIndex: action,
     });
@@ -27,10 +24,6 @@ class taskStore {
 
   setList(newList: listItem[]) {
     this.list = newList;
-  }
-
-  setEditingIndex(newIndex: any) {
-    this.editingIndex = newIndex;
   }
 
   setSelectedIndex(newSelIndex: any) {
