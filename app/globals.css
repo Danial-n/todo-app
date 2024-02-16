@@ -79,14 +79,19 @@
   h3 {
     @apply text-xl font-semibold;
   }
+  input {
+    @apply p-1 border-2;
+  }
   button {
     @apply p-1 rounded-md;
   }
   .alertbtn {
     @apply bg-red-500 p-2;
   }
-
-  input {
-    @apply p-1 border-2;
+  .formtitle {
+    @apply;
+  }
+  .formdetail {
+    @apply;
   }
 }

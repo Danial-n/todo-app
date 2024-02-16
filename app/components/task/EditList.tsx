@@ -27,6 +27,10 @@ const EditList = observer(() => {
     console.log(task);
   };
 
+  const deleteItem = (index: number) => {
+    setTask(task.filter((_, i) => i !== index));
+  };
+
   const editList = () => {
     storeList[selectedIndex].title = title;
     storeList[selectedIndex].tasks = task;
@@ -54,17 +58,21 @@ const EditList = observer(() => {
           <p>Task(s):</p>
         </div>
         {/* TASK LIST */}
-        {storeList[selectedIndex].tasks.map((taskIndex: any) => (
+        {task.map((tasks, taskIndex: number) => (
           <div key={taskIndex} className='flex justify-between items-center'>
             {/* TASK INPUT */}
             <input
-              value={task}
+              value={tasks}
               onChange={(e) => editTask(e.target.value, taskIndex)}
               placeholder='Add details here'
             />
             {/* DELETE TASK */}
             <button
-              // onClick={() => deleteItem(index)}
+              onClick={() => {
+                if (task.length != 1) {
+                  deleteItem(taskIndex);
+                }
+              }}
               className=' size-8 rounded-md bg-neutral-500'
             >
               -
@@ -79,24 +87,19 @@ const EditList = observer(() => {
   };
 
   return (
-    <Dialog>
-      <DialogTrigger className='bg-green-500 text-white  rounded-sm size-8'>
-        <Edit />
-      </DialogTrigger>
-      <DialogContent>
-        <div className='w-full space-y-3'>
-          <h2 className='flex items-center justify-center'>Edit</h2>
-          {formTitle()}
-          {formDetail()}
-        </div>
-        <div className='w-full flex items-center justify-center'>
-          {/* ADD FORM TO LIST BTN */}
-          <DialogClose onClick={editList} className='w-16 border'>
-            Edit
-          </DialogClose>
-        </div>
-      </DialogContent>
-    </Dialog>
+    <div className='w-full space-y-3'>
+      <div className=''>
+        <h2 className='flex items-center justify-center'>Edit</h2>
+        {formTitle()}
+        {formDetail()}
+      </div>
+      <div className='w-full flex items-center justify-center'>
+        {/* ADD FORM TO LIST BTN */}
+        <DialogClose onClick={editList} className='w-16 border'>
+          Edit
+        </DialogClose>
+      </div>
+    </div>
   );
 });
 

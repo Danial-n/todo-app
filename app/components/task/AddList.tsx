@@ -86,7 +86,11 @@ const AddList = observer(() => {
             />
             {/* DELETE TASK */}
             <button
-              onClick={() => deleteItem(index)}
+              onClick={() => {
+                if (userTaskInput.length != 1) {
+                  deleteItem(index);
+                }
+              }}
               className=' size-8 rounded-md bg-red-500'
             >
               -
