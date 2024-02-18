@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -20,6 +20,11 @@ const TaskCard = observer(() => {
 
   const handleIndex = (index: number) => {
     taskStore.setSelectedIndex(index);
+  };
+
+  const [crossout, setCrossout] = useState(false);
+  const dustedTask = () => {
+    setCrossout((prevCrossout) => !prevCrossout);
   };
 
   return list.map((item, index) => (
@@ -45,9 +50,8 @@ const TaskCard = observer(() => {
             // LIST OF TASK W/ CHECKBOX
             item.tasks.map((task, index) => (
               <div key={index} className='flex justify-between'>
-                <p>{task}</p>
-                {/* when tick, crossout text */}
-                <input type='checkbox' name={`task`} />
+                <p className={crossout ? 'line-through' : ''}>{task}</p>
+                <input type='checkbox' name={`task`} onChange={dustedTask} />
               </div>
             ))
           ) : (
