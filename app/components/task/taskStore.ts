@@ -20,10 +20,13 @@ class taskStore {
       selectedIndex: observable,
       setSelectedIndex: action,
     });
+
+    this.loadFromLocalStorage();
   }
 
   setList(newList: listItem[]) {
     this.list = newList;
+    this.saveToLocalStorage();
   }
 
   setSelectedIndex(newSelIndex: any) {
@@ -36,6 +39,25 @@ class taskStore {
 
   setUserTaskInput(newTask: any) {
     this.userTaskInput = newTask;
+  }
+
+  saveToLocalStorage() {
+    const dataToSave = {
+      list: this.list,
+      selectedIndex: this.selectedIndex,
+    };
+    localStorage.setItem('taskStore', JSON.stringify(dataToSave));
+  }
+
+  loadFromLocalStorage() {
+    const savedData = localStorage.getItem('taskStore');
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      runInAction(() => {
+        this.list = parsedData.list;
+        this.selectedIndex = parsedData.selectedIndex;
+      });
+    }
   }
 }
 

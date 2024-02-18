@@ -27,6 +27,10 @@ const EditList = observer(() => {
     console.log(task);
   };
 
+  const addTask = () => {
+    setTask([...task, '']);
+  };
+
   const deleteItem = (index: number) => {
     setTask(task.filter((_, i) => i !== index));
   };
@@ -81,7 +85,9 @@ const EditList = observer(() => {
         ))}
 
         {/* ADD TASK BTN */}
-        <button className=' rounded-md bg-neutral-500'>more tasks</button>
+        <button onClick={addTask} className=' rounded-md bg-neutral-500'>
+          more tasks
+        </button>
       </div>
     );
   };
