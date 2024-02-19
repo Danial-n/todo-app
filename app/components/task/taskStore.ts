@@ -1,12 +1,18 @@
 import { makeObservable, observable, action, runInAction } from 'mobx';
 
+export interface TaskItem {
+  description: string;
+  condition?: boolean;
+}
+
 export interface listItem {
   title: string;
-  tasks: string[];
+  tasks: Array<TaskItem>;
 }
 
 class taskStore {
   list: listItem[] = [];
+  task: TaskItem[] = [];
   userTitleInput = '';
   userTaskInput = [''];
   selectedIndex = 0;

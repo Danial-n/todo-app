@@ -85,6 +85,9 @@
   button {
     @apply p-1 rounded-md;
   }
+  .general-layout {
+    @apply w-full md:w-[1440px];
+  }
   .alertbtn {
     @apply bg-red-500 p-2;
   }

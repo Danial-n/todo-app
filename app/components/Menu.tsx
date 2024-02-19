@@ -14,7 +14,7 @@ import React from 'react';
 const Menu = () => {
   return (
     <div className='w-screen h-12 bg-blue-300 flex justify-center'>
-      <div className=' w-full md:w-[1440px] bg-blue-500 flex justify-between space-x-5 px-3'>
+      <div className='general-layout bg-blue-500 flex justify-between space-x-5 px-3'>
         {/* LEFT MENU */}
         <div className='flex items-center'>
           <Link href='/'>

@@ -6,14 +6,14 @@ import {
 } from '@/components/ui/dialog';
 import { Edit } from 'lucide-react';
 import React, { useState } from 'react';
-import taskStore from './taskStore';
+import taskStore, { TaskItem } from './taskStore';
 import { observer } from 'mobx-react';
 
 const EditList = observer(() => {
   const storeList = taskStore.list;
   const selectedIndex = taskStore.selectedIndex;
   const [title, setTitle] = useState<string>(storeList[selectedIndex].title);
-  const [task, setTask] = useState<string[]>(storeList[selectedIndex].tasks);
+  const [task, setTask] = useState<TaskItem[]>(storeList[selectedIndex].tasks);
 
   const editTitle = (newTitle: string) => {
     setTitle(newTitle);
@@ -22,13 +22,13 @@ const EditList = observer(() => {
 
   const editTask = (newTask: string, index: number) => {
     const updatedTasks = [...task];
-    updatedTasks[index] = newTask;
+    updatedTasks[index].description = newTask;
     setTask(updatedTasks);
     console.log(task);
   };
 
   const addTask = () => {
-    setTask([...task, '']);
+    setTask([...task, { description: '' }]);
   };
 
   const deleteItem = (index: number) => {
@@ -66,7 +66,7 @@ const EditList = observer(() => {
           <div key={taskIndex} className='flex justify-between items-center'>
             {/* TASK INPUT */}
             <input
-              value={tasks}
+              value={tasks.description}
               onChange={(e) => editTask(e.target.value, taskIndex)}
               placeholder='Add details here'
             />

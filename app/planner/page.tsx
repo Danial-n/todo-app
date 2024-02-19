@@ -12,8 +12,10 @@ const planner = () => {
       <div className='w-full h-full bg-cyan-400 flex justify-center'>
         <div className='md:w-[1440px] bg-orange-700'>
           <div className='flex h-3/5'>
-            <div className='w-1/3 bg-yellow-400'>
-              <Task />
+            <div className='w-1/3 h-full bg-yellow-400'>
+              <div className='w-full h-full flex-grow'>
+                <Task />
+              </div>
             </div>
             <div className='w-2/3 bg-green-400'>
               <Calendar />

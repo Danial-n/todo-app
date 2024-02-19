@@ -4,9 +4,9 @@ import Task from '../components/task/Task';
 
 const focus = () => {
   return (
-    <div className='h-screen flex flex-col'>
+    <div className='bg-orange-400 h-screen flex flex-col md:items-center justify-center'>
       <Menu />
-      <div className='bg-orange-400 flex-grow'>
+      <div className='general-layout h-full flex-grow md:flex '>
         <Task />
       </div>
     </div>

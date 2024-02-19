@@ -10,7 +10,7 @@ const Task = observer(() => {
   const list = taskStore.list;
 
   return (
-    <div className='w-full h-full p-5'>
+    <div className='w-full h-full p-5 flex justify-center'>
       <div className='w-full h-full bg-white flex flex-col justify-center rounded-md p-3'>
         <div className='h-10 flex justify-between'>
           <div>ToDo:</div>
@@ -18,7 +18,7 @@ const Task = observer(() => {
 
         <AddList />
 
-        <div className='h-full space-y-3'>
+        <div className='h-full space-y-3 overflow-auto'>
           {list.length > 0 ? (
             <TaskCard />
           ) : (

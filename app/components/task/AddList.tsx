@@ -9,9 +9,13 @@ import React, { useState } from 'react';
 import taskStore from './taskStore';
 
 const AddList = observer(() => {
+  interface TaskItem {
+    description: string;
+    condition?: boolean;
+  }
   interface ToDoItem {
     title: string;
-    tasks: string[];
+    tasks: Array<TaskItem>;
   }
 
   const [userTitleInput, setUserTitleInput] = useState<string>('');
@@ -23,7 +27,7 @@ const AddList = observer(() => {
     if (userTitleInput !== '') {
       const newTask: ToDoItem = {
         title: userTitleInput,
-        tasks: userTaskInput,
+        tasks: userTaskInput.map((task) => ({ description: task })),
       };
       console.log(newTask);
 
