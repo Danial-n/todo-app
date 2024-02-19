@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogClose,
@@ -12,7 +12,14 @@ import { observer } from 'mobx-react';
 
 const TaskCard = observer(() => {
   const list = taskStore.list;
-  const selectedIndex = taskStore.selectedIndex;
+
+  const [checkedTaskCounts, setCheckedTaskCounts] = useState<number[]>([]);
+  useEffect(() => {
+    const initialCounts = list.map(
+      (item) => item.tasks.filter((task) => task.condition).length
+    );
+    setCheckedTaskCounts(initialCounts);
+  }, [list]);
 
   const deleteList = (index: number) => {
     const newList = list.filter((_, i) => i !== index);
@@ -31,6 +38,15 @@ const TaskCard = observer(() => {
     };
     updatedList[listIndex].tasks[taskIndex] = updatedTaskItem; // update changes
     taskStore.setList(updatedList); // update condition to localstorage
+
+    setCheckedTaskCounts((prevCounts) => {
+      const newCounts = [...prevCounts];
+      const count = updatedList[listIndex].tasks.filter(
+        (task) => task.condition
+      ).length;
+      newCounts[listIndex] = count;
+      return newCounts;
+    });
   };
 
   return list.map((item, listIndex) => (
@@ -41,7 +57,13 @@ const TaskCard = observer(() => {
       {/* list detail */}
       <Dialog>
         <DialogTrigger className='w-full text-left'>
-          <h3>{item.title}</h3>
+          <div className='flex space-x-5'>
+            <h3>{item.title}</h3>
+            <p>
+              {checkedTaskCounts[listIndex]}/{item.tasks.length}
+            </p>
+          </div>
+
           <div>
             {item.tasks.length >= 0 && item.tasks[0].description !== '' ? (
               <div className='flex flex-col'>{item.tasks[0].description}</div>
@@ -56,12 +78,12 @@ const TaskCard = observer(() => {
             // LIST OF TASK W/ CHECKBOX
             item.tasks.map((task, taskIndex) => (
               <div key={taskIndex} className='flex justify-between'>
-                <p className={task.condition ? 'line-through' : ''}>
+                <p className={task.condition ? 'line-through opacity-30' : ''}>
                   {task.description}
                 </p>
                 <input
                   type='checkbox'
-                  name={`task - `[taskIndex]}
+                  name={`list - ${listIndex} / task - ${taskIndex}`}
                   checked={task.condition}
                   onChange={(e) =>
                     dustedTask(listIndex, taskIndex, e.target.checked)
