@@ -14,6 +14,7 @@ const TaskCard = observer(() => {
   const list = taskStore.list;
 
   const [checkedTaskCounts, setCheckedTaskCounts] = useState<number[]>([]);
+
   useEffect(() => {
     const initialCounts = list.map(
       (item) => item.tasks.filter((task) => task.condition).length
@@ -52,28 +53,38 @@ const TaskCard = observer(() => {
   return list.map((item, listIndex) => (
     <div
       key={listIndex}
-      className='flex justify-center items-center p-3 rounded-md bg-neutral-300'
+      className='flex justify-center items-center p-3 rounded-md thebezelplus space-x-5 h-24'
     >
       {/* list detail */}
       <Dialog>
-        <DialogTrigger className='w-full text-left'>
-          <div className='flex space-x-5'>
-            <h3>{item.title}</h3>
-            <p>
-              {checkedTaskCounts[listIndex]}/{item.tasks.length}
-            </p>
-          </div>
-
+        <DialogTrigger className='w-11/12 text-left bg-screen rounded-sm pl-3 flex justify-between'>
           <div>
-            {item.tasks.length >= 0 && item.tasks[0].description !== '' ? (
-              <div className='flex flex-col'>{item.tasks[0].description}</div>
+            <div className='flex space-x-5'>
+              <h3>{item.title}</h3>
+            </div>
+            <div>
+              {item.tasks.length >= 0 && item.tasks[0].description !== '' ? (
+                <div className='flex flex-col'>{item.tasks[0].description}</div>
+              ) : (
+                <div>no task</div> // IF NO TASK
+              )}
+            </div>
+          </div>
+          <div className='flex justify-center items-center pr-3 font-bold text-2xl'>
+            {item.tasks[0].description !== '' ? (
+              <p>
+                {checkedTaskCounts[listIndex] > item.tasks.length
+                  ? checkedTaskCounts[listIndex] - 1
+                  : checkedTaskCounts[listIndex]}
+                /{item.tasks.length}
+              </p>
             ) : (
-              <div>no task</div> // IF NO TASK
+              ''
             )}
           </div>
         </DialogTrigger>
         <DialogContent>
-          <h2>{item.title}</h2>
+          <h2 className='text-center'>{item.title}</h2>
           {item.tasks.length >= 0 && item.tasks[0].description !== '' ? (
             // LIST OF TASK W/ CHECKBOX
             item.tasks.map((task, taskIndex) => (
@@ -103,7 +114,7 @@ const TaskCard = observer(() => {
         <Dialog>
           <DialogTrigger
             onClick={() => handleIndex(listIndex)}
-            className='bg-green-500 text-white  rounded-sm size-8'
+            className='yellow-btn'
           >
             <Edit />
           </DialogTrigger>
@@ -113,7 +124,7 @@ const TaskCard = observer(() => {
         </Dialog>
         {/* REMOVE LIST */}
         <Dialog>
-          <DialogTrigger className='bg-red-500 text-white rounded-sm size-8'>
+          <DialogTrigger className='red-btn'>
             <Trash />
           </DialogTrigger>
           <DialogContent className='flex flex-col justify-center items-center'>
@@ -121,11 +132,11 @@ const TaskCard = observer(() => {
             <div className='flex space-x-5'>
               <DialogClose
                 onClick={() => deleteList(listIndex)}
-                className='alertbtn'
+                className='neutral-btn w-12'
               >
                 Yes
               </DialogClose>
-              <DialogClose>No</DialogClose>
+              <DialogClose className='red-btn w-12'>No</DialogClose>
             </div>
           </DialogContent>
         </Dialog>

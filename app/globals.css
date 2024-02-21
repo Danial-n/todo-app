@@ -97,4 +97,122 @@
   .formdetail {
     @apply;
   }
+  .theblueplus {
+    border: solid 1px rgb(5, 133, 197);
+    background: #168dfd;
+    box-shadow: 0px 6px 0px #0f74a7;
+  }
+  /* .theblueplus:active {
+    box-shadow: 0px 2px 0px #169de1;
+    position: relative;
+    top: 4px;
+  } */
+  .thebezelplus {
+    border: solid 1px #f39b17;
+    background: #ffb443;
+    box-shadow: 0px 6px 0px #c4882e;
+  }
+
+  /* 3rd party: url??*/
+  .red-btn {
+    position: relative;
+    width: auto;
+    color: #ffff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid 1px #fa553c;
+    background: #f4654f;
+    text-align: center;
+    padding: 3px;
+    transition: all 0.1s;
+    box-shadow: 0px 3px 0px #cc5846;
+  }
+  .red-btn:active {
+    box-shadow: 0px 2px 0px #cc5846;
+    position: relative;
+    top: 4px;
+  }
+
+  .yellow-btn {
+    position: relative;
+    width: auto;
+    color: #ffff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid 1px #f9db1c;
+    background: #f2dc4b;
+    text-align: center;
+    padding: 3px;
+    transition: all 0.1s;
+    box-shadow: 0px 3px 0px #d0bd41;
+  }
+  .yellow-btn:active {
+    box-shadow: 0px 2px 0px #d0bd41;
+    position: relative;
+    top: 4px;
+  }
+
+  .green-btn {
+    position: relative;
+    width: auto;
+    color: #ffff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid 1px #36f773;
+    background: #71fc9c;
+    text-align: center;
+    padding: 3px;
+    transition: all 0.1s;
+    box-shadow: 0px 3px 0px #55d47d;
+  }
+  .green-btn:active {
+    box-shadow: 0px 2px 0px #55d47d;
+    position: relative;
+    top: 4px;
+  }
+
+  .blue-btn {
+    position: relative;
+    width: auto;
+    color: #ffff;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid 1px #0ca0ea;
+    background: #19affb;
+    text-align: center;
+    padding: 3px;
+    transition: all 0.1s;
+    box-shadow: 0px 3px 0px #169de1;
+  }
+  .blue-btn:active {
+    box-shadow: 0px 2px 0px #169de1;
+    position: relative;
+    top: 4px;
+  }
+
+  .neutral-btn {
+    position: relative;
+    width: auto;
+    color: #070707;
+    text-decoration: none;
+    border-radius: 5px;
+    border: solid 1px #dbdbdb;
+    background: #ffffff;
+    text-align: center;
+    padding: 3px;
+    transition: all 0.1s;
+    box-shadow: 0px 3px 0px #a9a9a9;
+  }
+  .neutral-btn:active {
+    box-shadow: 0px 2px 0px #a9a9a9;
+    position: relative;
+    top: 4px;
+  }
+
+  .test {
+    color: #168dfd;
+    color: #f4654f;
+    color: #2bb826;
+    color: #ffdfb0;
+  }
 }

@@ -22,7 +22,7 @@ const EditList = observer(() => {
 
   const editTask = (newTask: string, index: number) => {
     const updatedTasks = [...task];
-    updatedTasks[index].description = newTask;
+    updatedTasks[index] = { ...updatedTasks[index], description: newTask };
     setTask(updatedTasks);
     console.log(task);
   };
@@ -69,6 +69,7 @@ const EditList = observer(() => {
               value={tasks.description}
               onChange={(e) => editTask(e.target.value, taskIndex)}
               placeholder='Add details here'
+              className='border-2  w-10/12'
             />
             {/* DELETE TASK */}
             <button
@@ -77,7 +78,7 @@ const EditList = observer(() => {
                   deleteItem(taskIndex);
                 }
               }}
-              className=' size-8 rounded-md bg-neutral-500'
+              className='red-btn size-8'
             >
               -
             </button>
@@ -85,7 +86,7 @@ const EditList = observer(() => {
         ))}
 
         {/* ADD TASK BTN */}
-        <button onClick={addTask} className=' rounded-md bg-neutral-500'>
+        <button onClick={addTask} className='blue-btn'>
           more tasks
         </button>
       </div>
@@ -101,8 +102,8 @@ const EditList = observer(() => {
       </div>
       <div className='w-full flex items-center justify-center'>
         {/* ADD FORM TO LIST BTN */}
-        <DialogClose onClick={editList} className='w-16 border'>
-          Edit
+        <DialogClose onClick={editList} className='yellow-btn w-16'>
+          Save
         </DialogClose>
       </div>
     </div>
