@@ -1,12 +1,18 @@
 import { makeObservable, observable, action, runInAction } from 'mobx';
 
+export interface TaskItem {
+  description: string;
+  condition?: boolean;
+}
+
 export interface listItem {
   title: string;
-  tasks: string[];
+  tasks: Array<TaskItem>;
 }
 
 class taskStore {
   list: listItem[] = [];
+  task: TaskItem[] = [];
   userTitleInput = '';
   userTaskInput = [''];
   selectedIndex = 0;
@@ -20,10 +26,13 @@ class taskStore {
       selectedIndex: observable,
       setSelectedIndex: action,
     });
+
+    this.loadFromLocalStorage();
   }
 
   setList(newList: listItem[]) {
     this.list = newList;
+    this.saveToLocalStorage();
   }
 
   setSelectedIndex(newSelIndex: any) {
@@ -36,6 +45,25 @@ class taskStore {
 
   setUserTaskInput(newTask: any) {
     this.userTaskInput = newTask;
+  }
+
+  saveToLocalStorage() {
+    const dataToSave = {
+      list: this.list,
+      selectedIndex: this.selectedIndex,
+    };
+    localStorage.setItem('taskStore', JSON.stringify(dataToSave));
+  }
+
+  loadFromLocalStorage() {
+    const savedData = localStorage.getItem('taskStore');
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+      runInAction(() => {
+        this.list = parsedData.list;
+        this.selectedIndex = parsedData.selectedIndex;
+      });
+    }
   }
 }
 

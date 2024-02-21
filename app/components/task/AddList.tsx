@@ -9,9 +9,13 @@ import React, { useState } from 'react';
 import taskStore from './taskStore';
 
 const AddList = observer(() => {
+  interface TaskItem {
+    description: string;
+    condition?: boolean;
+  }
   interface ToDoItem {
     title: string;
-    tasks: string[];
+    tasks: Array<TaskItem>;
   }
 
   const [userTitleInput, setUserTitleInput] = useState<string>('');
@@ -23,7 +27,7 @@ const AddList = observer(() => {
     if (userTitleInput !== '') {
       const newTask: ToDoItem = {
         title: userTitleInput,
-        tasks: userTaskInput,
+        tasks: userTaskInput.map((task) => ({ description: task })),
       };
       console.log(newTask);
 
@@ -91,7 +95,7 @@ const AddList = observer(() => {
                   deleteItem(index);
                 }
               }}
-              className=' size-8 rounded-md bg-red-500'
+              className='red-btn size-8'
             >
               -
             </button>
@@ -99,7 +103,7 @@ const AddList = observer(() => {
         ))}
 
         {/* ADD TASK BTN */}
-        <button onClick={addTask} className=' rounded-md bg-lime-500'>
+        <button onClick={addTask} className='blue-btn'>
           more task
         </button>
       </div>
@@ -115,7 +119,7 @@ const AddList = observer(() => {
             addTask();
           }
         }}
-        className='fixed bottom-8 right-8 bg-pink-300 size-14 rounded-md'
+        className='fixed bottom-8 right-8 bg-theblue size-14 rounded-md'
       >
         +
       </DialogTrigger>
@@ -128,7 +132,7 @@ const AddList = observer(() => {
         </div>
         <div className='w-full flex items-center justify-center'>
           {/* ADD FORM TO LIST BTN */}
-          <DialogClose onClick={addItem} className=' w-16 border '>
+          <DialogClose onClick={addItem} className='green-btn w-16'>
             Add
           </DialogClose>
         </div>
