@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import {
   Dialog,
@@ -138,7 +140,7 @@ const TaskCard = observer(() => {
           >
             <Edit />
           </DialogTrigger>
-          <DialogContent className='flex flex-col justify-center items-center'>
+          <DialogContent className='flex flex-col justify-center items-center py-1'>
             <EditList />
           </DialogContent>
         </Dialog>

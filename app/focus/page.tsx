@@ -2,7 +2,7 @@ import React from 'react';
 import Menu from '../components/Menu';
 import Task from '../components/task/Task';
 
-const focus = () => {
+const Focus = () => {
   return (
     <div className='h-screen flex flex-col items-center justify-center bg-thebackground'>
       <Menu />
@@ -13,4 +13,4 @@ const focus = () => {
   );
 };
 
-export default focus;
+export default Focus;

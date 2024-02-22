@@ -5,7 +5,7 @@ import Calendar from '../components/Calendar';
 import Mile from '../components/Mile';
 import Menu from '../components/Menu';
 
-const planner = () => {
+const Planner = () => {
   return (
     <div className='w-screen h-screen'>
       <Menu />
@@ -30,4 +30,4 @@ const planner = () => {
   );
 };
 
-export default planner;
+export default Planner;

@@ -1,10 +1,6 @@
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogTrigger,
-} from '@/components/ui/dialog';
-import { Edit } from 'lucide-react';
+'use client';
+
+import { DialogClose } from '@/components/ui/dialog';
 import React, { useEffect, useState } from 'react';
 import taskStore, { TaskItem } from './taskStore';
 import { observer } from 'mobx-react';

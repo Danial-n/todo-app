@@ -30,10 +30,12 @@ export default function Home() {
         md:flex-row md:justify-center md:space-x-5 md:space-y-0 md:w-1/3'
         >
           <div className='flex md:flex-col justify-between'>
-            <Link href='/focus'>
-              <button className='blue-btn w-40 h-14'>Enter</button>{' '}
-              {/* focus */}
-            </Link>
+            <button className='blue-btn w-40 h-14'>
+              <Link href='/focus' className='h-full w-full'>
+                Enter
+              </Link>
+            </button>{' '}
+            {/* focus */}
           </div>
           {/* <div className='flex md:flex-col justify-between'>
             <Link href='/planner'>

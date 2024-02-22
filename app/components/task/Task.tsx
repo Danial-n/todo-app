@@ -1,14 +1,20 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AddList from './AddList';
 import { observer } from 'mobx-react';
-import taskStore from './taskStore';
+import taskStore, { listItem } from './taskStore';
 import TaskCard from './TaskCard';
 import Image from 'next/image';
 
 const Task = observer(() => {
-  const list = taskStore.list;
+  const [list, setList] = useState<listItem[]>([]);
+
+  useEffect(() => {
+    if (taskStore.list.length > 0) {
+      setList(taskStore.list);
+    }
+  }, [taskStore.list]);
 
   return (
     <div className='w-full h-full p-5 flex justify-center'>
@@ -27,7 +33,6 @@ const Task = observer(() => {
                 width={75}
                 height={75}
               />
-              <p>No Task</p>
             </div>
           )}
         </div>
