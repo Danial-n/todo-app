@@ -1,3 +1,5 @@
+'use client';
+
 import { makeObservable, observable, action, runInAction } from 'mobx';
 
 export interface TaskItem {
@@ -55,8 +57,11 @@ class taskStore {
     localStorage.setItem('taskStore', JSON.stringify(dataToSave));
   }
 
-  loadFromLocalStorage() {
-    const savedData = localStorage.getItem('taskStore');
+  loadFromLocalStorage = () => {
+    const savedData =
+      typeof localStorage !== 'undefined'
+        ? localStorage.getItem('taskStore')
+        : JSON.stringify([{ title: '', tasks: [{ description: '' }] }]);
     if (savedData) {
       const parsedData = JSON.parse(savedData);
       runInAction(() => {
@@ -64,7 +69,7 @@ class taskStore {
         this.selectedIndex = parsedData.selectedIndex;
       });
     }
-  }
+  };
 }
 
 export default new taskStore();
