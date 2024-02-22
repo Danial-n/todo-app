@@ -13,7 +13,7 @@ import React from 'react';
 
 const Menu = () => {
   return (
-    <div className='w-11/12 h-14 flex justify-center items-end'>
+    <div className='w-11/12 h-14 flex justify-center items-end text-white'>
       <div className='general-layout theblueplus flex justify-between space-x-5 px-3 rounded-lg h-12'>
         {/* LEFT MENU */}
         <div className='flex items-center'>
@@ -42,7 +42,7 @@ const Menu = () => {
             </DropdownMenuContent>
           </DropdownMenu>
           {/* PROFILE */}
-          <button>profile</button>
+          {/* <button>profile</button> */}
         </div>
       </div>
     </div>

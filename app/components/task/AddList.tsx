@@ -5,7 +5,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { observer } from 'mobx-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import taskStore from './taskStore';
 
 const AddList = observer(() => {
@@ -57,6 +57,14 @@ const AddList = observer(() => {
     setUserTaskInput(userTaskInput.filter((_, i) => i !== index));
   };
 
+  useEffect(() => {
+    const scrollContainer = document.getElementById('taskListContainer'); // add an ID to the task list container
+
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+  }, [userTaskInput]);
+
   const formTitle = () => {
     return (
       <div className='flex  space-x-3 items-center'>
@@ -77,30 +85,34 @@ const AddList = observer(() => {
         <div className='flex justify-between items-center'>
           <p>Task(s):</p>
         </div>
-
-        {/* TASK LIST */}
-        {userTaskInput.map((task, index) => (
-          <div key={index} className='flex justify-between items-center'>
-            {/* TASK DETAIL */}
-            <input
-              value={task}
-              onChange={(e) => updateTask(index, e.target.value)}
-              placeholder='Add details here'
-              className='border-2  w-10/12'
-            />
-            {/* DELETE TASK */}
-            <button
-              onClick={() => {
-                if (userTaskInput.length != 1) {
-                  deleteItem(index);
-                }
-              }}
-              className='red-btn size-8'
-            >
-              -
-            </button>
-          </div>
-        ))}
+        <div
+          id='taskListContainer'
+          className='w-full max-h-44 p-1 overflow-scroll no-scrollbar space-y-5'
+        >
+          {/* TASK LIST */}
+          {userTaskInput.map((task, index) => (
+            <div key={index} className='flex justify-between items-center'>
+              {/* TASK DETAIL */}
+              <input
+                value={task}
+                onChange={(e) => updateTask(index, e.target.value)}
+                placeholder='Add details here'
+                className='border-2  w-10/12'
+              />
+              {/* DELETE TASK */}
+              <button
+                onClick={() => {
+                  if (userTaskInput.length != 1) {
+                    deleteItem(index);
+                  }
+                }}
+                className='red-btn size-8'
+              >
+                -
+              </button>
+            </div>
+          ))}
+        </div>
 
         {/* ADD TASK BTN */}
         <button onClick={addTask} className='blue-btn'>
@@ -119,12 +131,12 @@ const AddList = observer(() => {
             addTask();
           }
         }}
-        className='fixed bottom-8 right-8 bg-theblue size-14 rounded-md'
+        className='flex justify-center items-center add-btn size-14 rounded-md text-white'
       >
         +
       </DialogTrigger>
       {/* ADD LIST FORM */}
-      <DialogContent>
+      <DialogContent className='flex flex-col justify-center items-center'>
         <div className='w-full space-y-3'>
           <h2 className='flex items-center justify-center'>ToDo</h2>
           {formTitle()}

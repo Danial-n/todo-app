@@ -23,7 +23,7 @@ const config = {
         thered: '#f4654f',
         thegreen: '#2bb826',
         screen: '#f3f3e5',
-        bezel: '#fff4e4',
+        thebackground: '#fff4e4',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',

@@ -5,7 +5,7 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { Edit } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import taskStore, { TaskItem } from './taskStore';
 import { observer } from 'mobx-react';
 
@@ -41,9 +41,17 @@ const EditList = observer(() => {
     taskStore.setList(storeList);
   };
 
+  useEffect(() => {
+    const scrollContainer = document.getElementById('taskListContainer'); // add an ID to the task list container
+
+    if (scrollContainer) {
+      scrollContainer.scrollTop = scrollContainer.scrollHeight;
+    }
+  }, [task]);
+
   const formTitle = () => {
     return (
-      <div className='flex  space-x-3 items-center'>
+      <div className='w-full flex flex-row space-x-3 justify-start items-center'>
         <p>Title:</p>
         <input
           type='text'
@@ -57,33 +65,38 @@ const EditList = observer(() => {
 
   const formDetail = () => {
     return (
-      <div className='flex flex-col space-y-3'>
-        <div className='flex justify-between items-center'>
+      <div className='w-full flex flex-col space-y-3'>
+        <div className='w-full flex justify-between items-center'>
           <p>Task(s):</p>
         </div>
         {/* TASK LIST */}
-        {task.map((tasks, taskIndex: number) => (
-          <div key={taskIndex} className='flex justify-between items-center'>
-            {/* TASK INPUT */}
-            <input
-              value={tasks.description}
-              onChange={(e) => editTask(e.target.value, taskIndex)}
-              placeholder='Add details here'
-              className='border-2  w-10/12'
-            />
-            {/* DELETE TASK */}
-            <button
-              onClick={() => {
-                if (task.length != 1) {
-                  deleteItem(taskIndex);
-                }
-              }}
-              className='red-btn size-8'
-            >
-              -
-            </button>
-          </div>
-        ))}
+        <div
+          id='taskListContainer'
+          className='w-full max-h-44 p-1 overflow-scroll no-scrollbar space-y-5'
+        >
+          {task.map((tasks, taskIndex: number) => (
+            <div key={taskIndex} className='flex justify-between items-center'>
+              {/* TASK INPUT */}
+              <input
+                value={tasks.description}
+                onChange={(e) => editTask(e.target.value, taskIndex)}
+                placeholder='Add details here'
+                className='border-2  w-10/12'
+              />
+              {/* DELETE TASK */}
+              <button
+                onClick={() => {
+                  if (task.length != 1) {
+                    deleteItem(taskIndex);
+                  }
+                }}
+                className='red-btn size-8'
+              >
+                -
+              </button>
+            </div>
+          ))}
+        </div>
 
         {/* ADD TASK BTN */}
         <button onClick={addTask} className='blue-btn'>
@@ -94,18 +107,19 @@ const EditList = observer(() => {
   };
 
   return (
-    <div className='w-full space-y-3'>
-      <div className=''>
-        <h2 className='flex items-center justify-center'>Edit</h2>
-        {formTitle()}
-        {formDetail()}
-      </div>
-      <div className='w-full flex items-center justify-center'>
-        {/* ADD FORM TO LIST BTN */}
-        <DialogClose onClick={editList} className='yellow-btn w-16'>
-          Save
-        </DialogClose>
-      </div>
+    <div className='w-full h-full flex flex-col justify-center items-center space-y-3'>
+      <h2 className='w-full flex items-center justify-center'>Edit</h2>
+      {formTitle()}
+      {formDetail()}
+      {/* <div className='w-full '> */}
+      {/* ADD FORM TO LIST BTN */}
+      <DialogClose
+        onClick={editList}
+        className='yellow-btn w-16 flex items-center justify-center'
+      >
+        Save
+      </DialogClose>
+      {/* </div> */}
     </div>
   );
 });

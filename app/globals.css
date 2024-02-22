@@ -86,7 +86,7 @@
     @apply p-1 rounded-md;
   }
   .general-layout {
-    @apply w-full md:w-[1440px];
+    @apply w-full lg:w-[1440px];
   }
   .alertbtn {
     @apply bg-red-500 p-2;
@@ -97,6 +97,10 @@
   .formdetail {
     @apply;
   }
+  .no-scrollbar {
+    scrollbar-width: none;
+  }
+
   .theblueplus {
     border: solid 1px rgb(5, 133, 197);
     background: #168dfd;
@@ -107,6 +111,7 @@
     position: relative;
     top: 4px;
   } */
+
   .thebezelplus {
     border: solid 1px #f39b17;
     background: #ffb443;
@@ -114,6 +119,17 @@
   }
 
   /* 3rd party: url??*/
+  .add-btn {
+    border: solid 1px rgb(5, 133, 197);
+    background: #168dfd;
+    box-shadow: 0px 3px 0px #0f74a7;
+  }
+  .add-btn:active {
+    box-shadow: 0px 2px 0px #169de1;
+    position: relative;
+    top: 4px;
+  }
+
   .red-btn {
     position: relative;
     width: auto;

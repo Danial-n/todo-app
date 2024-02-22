@@ -12,18 +12,15 @@ const Task = observer(() => {
 
   return (
     <div className='w-full h-full p-5 flex justify-center'>
-      <div className='w-full h-full bg-transparent flex flex-col justify-center rounded-md p-3'>
-        <div className='h-10 flex justify-between'>
-          <div>ToDo:</div>
+      <div className='w-full h-full bg-transparent flex flex-col justify-center items-center rounded-md p-3 space-y-3'>
+        <div className='w-full'>
+          <p className='text-left'>ToDo:</p>
         </div>
-
-        <AddList />
-
-        <div className='h-full space-y-5 overflow-auto'>
+        <div className='h-full w-full space-y-5 overflow-auto no-scrollbar rounded-lg'>
           {list.length > 0 ? (
             <TaskCard />
           ) : (
-            <div className='flex flex-col justify-center items-center grayscale opacity-30 space-y-5 pt-16 text-center'>
+            <div className='flex flex-col flex-wrap justify-center items-center grayscale opacity-30 space-y-5 pt-16 text-center'>
               <Image
                 src='/assets/remove_12653143.png'
                 alt='no task'
@@ -34,6 +31,7 @@ const Task = observer(() => {
             </div>
           )}
         </div>
+        <AddList />
       </div>
     </div>
   );
