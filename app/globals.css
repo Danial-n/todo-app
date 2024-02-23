@@ -77,7 +77,7 @@
     @apply text-2xl font-bold;
   }
   h3 {
-    @apply text-xl font-semibold;
+    @apply text-base sm:text-xl font-semibold;
   }
   input {
     @apply p-1 border-2;

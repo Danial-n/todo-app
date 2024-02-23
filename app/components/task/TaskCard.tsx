@@ -62,7 +62,7 @@ const TaskCard = observer(() => {
       {/* list detail */}
       <Dialog>
         <DialogTrigger className='w-11/12 text-left bg-screen rounded-sm pl-3 flex justify-between truncate'>
-          <div className='w-9/12 md:w-11/12 truncate'>
+          <div className='w-8/12 md:w-11/12 truncate'>
             <div className='flex space-x-5'>
               <h3>{item.title}</h3>
             </div>
@@ -89,7 +89,7 @@ const TaskCard = observer(() => {
         </DialogTrigger>
         <DialogContent className='flex flex-col justify-center items-center '>
           <h2 className='text-center break-all'>{item.title}</h2>
-          <div className='w-full overflow-auto no-scrollbar space-y-5'>
+          <div className='w-full overflow-auto no-scrollbar space-y-5 pb-1'>
             {item.tasks.length >= 0 && item.tasks[0].description !== '' ? (
               // LIST OF TASK W/ CHECKBOX
               item.tasks.map((task, taskIndex) => (

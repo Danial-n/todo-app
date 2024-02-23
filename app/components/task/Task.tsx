@@ -18,7 +18,7 @@ const Task = observer(() => {
 
   return (
     <div className='w-full h-full p-5 flex justify-center'>
-      <div className='w-full h-full bg-transparent flex flex-col justify-center items-center rounded-md p-3 space-y-3'>
+      <div className='w-screen h-full bg-transparent flex flex-col justify-center items-center rounded-md p-3 space-y-3'>
         <div className='w-full'>
           <p className='text-left'>ToDo:</p>
         </div>
@@ -33,6 +33,7 @@ const Task = observer(() => {
                 width={75}
                 height={75}
               />
+              <p>No Task</p>
             </div>
           )}
         </div>

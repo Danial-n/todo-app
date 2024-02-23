@@ -17,7 +17,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang='en'>
-      <body className={inter.className}>
+      <body className={`bg-thebackground ${inter.className}`}>
         <div className='max-h-screen'>{children}</div>
       </body>
     </html>

@@ -103,7 +103,7 @@ const EditList = observer(() => {
   };
 
   return (
-    <div className='w-full h-full flex flex-col justify-center items-center space-y-3'>
+    <div className='w-full h-full flex flex-col justify-center items-center space-y-3 p-3'>
       <h2 className='w-full flex items-center justify-center'>Edit</h2>
       {formTitle()}
       {formDetail()}
