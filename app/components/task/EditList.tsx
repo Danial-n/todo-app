@@ -18,7 +18,11 @@ const EditList = observer(() => {
 
   const editTask = (newTask: string, index: number) => {
     const updatedTasks = [...task];
-    updatedTasks[index] = { ...updatedTasks[index], description: newTask };
+    if (newTask.trim() !== '') {
+      updatedTasks[index] = { ...updatedTasks[index], description: newTask };
+    } else {
+      updatedTasks.splice(index, 1);
+    }
     setTask(updatedTasks);
     console.log(task);
   };

@@ -26,10 +26,14 @@ const AddList = observer(() => {
 
   // Add all item to the list
   const addItem = () => {
-    if (userTitleInput !== '') {
+    const nonEmptyTasks = userTaskInput.filter((task) => task.trim() !== '');
+    if (userTitleInput !== '' || nonEmptyTasks.length > 0) {
       const newTask: ToDoItem = {
         title: userTitleInput,
-        tasks: userTaskInput.map((task) => ({ description: task })),
+        tasks:
+          nonEmptyTasks.length > 0
+            ? nonEmptyTasks.map((task) => ({ description: task }))
+            : [{ description: '' }],
       };
       console.log(newTask);
 
